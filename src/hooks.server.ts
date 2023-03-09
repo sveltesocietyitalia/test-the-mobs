@@ -1,21 +1,20 @@
 import { SvelteKitAuth } from "@auth/sveltekit";
 import Credentials from "@auth/core/providers/credentials";
-import { GITHUB_ID, GITHUB_SECRET } from "$env/static/private";
+import type { User } from "@auth/core/types";
+import type { Provider } from "@auth/core/providers";
 
 export const handle = SvelteKitAuth({
-    providers: [Credentials({
-    type: "credentials",
-    id: "credentials",
-    credentials: {
-      username: { label: "Username" },
-      password: { label: "Password", type: "password" },
-    },
-    async authorize({ request }) {
-      const response = await fetch(request);
-      if (!response.ok) return null;
-      return await response.json() ?? null;
-    },
-    }) as any],
-    secret: "sveltesociety",
-    
+  providers: [
+    Credentials(
+{
+      type: "credentials",
+      id: "credentials",
+      authorize() {
+        return {
+          name: "Marco",
+          email: "Marco@Sveltesociety.it",
+        };
+      },
+    }),
+  ],
 });
