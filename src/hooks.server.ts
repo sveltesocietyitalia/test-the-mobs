@@ -13,7 +13,7 @@ export const handle = SvelteKitAuth({
         },
         authorize(credentials) {
           if (!credentials?.username || !credentials?.password) {
-            return null
+            return null;
           }
           return {
             id: "fas5987fguyvhdafa",
